@@ -148,9 +148,7 @@ static void show_usage(const char *progname, int exitcode)
 int main(int argc, char **argv, char **envp)
 {
   struct termios tty;
-#ifndef CONFIG_EXAMPLES_USBSERIAL_OUTONLY
   ssize_t nbytes;
-#endif
 #ifdef COUNTER_NEEDED
   int count = 0;
 #endif
@@ -253,22 +251,22 @@ int main(int argc, char **argv, char **envp)
       count++;
       if (count < 5)
         {
-          printf("main: Sending %d bytes..\n", sizeof(g_shortmsg));
+          printf("main: Sending %ld bytes..\n", sizeof(g_shortmsg));
           nbytes = write(fd, g_shortmsg, sizeof(g_shortmsg));
         }
       else
         {
-          printf("main: Sending %d bytes..\n", sizeof(g_longmsg));
+          printf("main: Sending %ld bytes..\n", sizeof(g_longmsg));
           nbytes = write(fd, g_longmsg, sizeof(g_longmsg));
           count = 0;
         }
 
 #elif !defined(CONFIG_EXAMPLES_USBSERIAL_ONLYSMALL)
-      printf("main: Sending %d bytes..\n", sizeof(g_longmsg));
+      printf("main: Sending %ld bytes..\n", sizeof(g_longmsg));
       nbytes = write(fd, g_longmsg, sizeof(g_longmsg));
 
 #else /* !defined(CONFIG_EXAMPLES_USBSERIAL_ONLYBIG) */
-      printf("main: Sending %d bytes..\n", sizeof(g_shortmsg));
+      printf("main: Sending %ld bytes..\n", sizeof(g_shortmsg));
       nbytes = write(fd, g_shortmsg, sizeof(g_shortmsg));
 #endif
 
